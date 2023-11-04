@@ -6,13 +6,13 @@ public class TowerBuilder : MonoBehaviour
 {
     [SerializeField] private Player _player;
     [SerializeField] private PathCreator _pathCreator;
-    private Vector3 _spawnPoint;
+    [SerializeField] private Vector3 _spawnPoint;
+    [SerializeField] private float _offsetX;
     private float _positionY;
 
-    private void Start()
+    private void Awake()
     {
-        _spawnPoint = _pathCreator.path.GetPointAtDistance(0);
-        Debug.Log(_spawnPoint);
+        _spawnPoint.x = _pathCreator.path.GetPointAtDistance(0).x + _offsetX;
     }
 
     public List<Player> Build(int playersCount, float distance)
@@ -33,6 +33,7 @@ public class TowerBuilder : MonoBehaviour
 
     private Player BuildPlayer()
     {
+        Debug.Log(_spawnPoint);
         return Instantiate(_player, GetPosition(ref _spawnPoint, _positionY), Quaternion.identity, transform);
     }
 

@@ -385,6 +385,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _player: {fileID: 5511088878767460954, guid: 2584e4b40b8d2ce43a2a545c778a34b9, type: 3}
   _pathCreator: {fileID: 469760927}
+  _spawnPoint: {x: 0, y: 0, z: 0}
+  _offsetX: 3.5
 --- !u!4 &502742423
 Transform:
   m_ObjectHideFlags: 0

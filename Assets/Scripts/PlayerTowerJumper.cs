@@ -12,7 +12,7 @@ public class PlayerTowerJumper : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space) && _ground.position.y - transform.position.y > _minDistance)
+        if (Input.GetMouseButtonDown(0) && _ground.position.y - transform.position.y > _minDistance)
         {
             _rigidbody.AddForce(transform.up * _jumpForce);
         }
