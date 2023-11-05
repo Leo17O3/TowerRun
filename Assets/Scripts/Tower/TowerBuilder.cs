@@ -4,37 +4,38 @@ using UnityEngine;
 
 public class TowerBuilder : MonoBehaviour
 {
-    [SerializeField] private Player _player;
+    [SerializeField] private Humanoid _player;
     [SerializeField] private PathCreator _pathCreator;
-    [SerializeField] private Vector3 _spawnPoint;
+    private Vector3 _spawnPoint;
     [SerializeField] private float _offsetX;
     private float _positionY;
 
     private void Awake()
     {
         _spawnPoint.x = _pathCreator.path.GetPointAtDistance(0).x + _offsetX;
+        _spawnPoint.z = _pathCreator.path.GetPointAtDistance(_spawnPoint.x).z;
     }
 
-    public List<Player> Build(int playersCount, float distance)
+    public List<Humanoid> Build(int playersCount, float distance)
     {
-        List<Player> players = new List<Player>();
+        List<Humanoid> players = new List<Humanoid>();
 
         for (int i = 0; i < playersCount; i++)
         {
-            Player player = BuildPlayer();
+            Humanoid player = BuildPlayer();
             players.Add(player);
         }
 
         _positionY = 0f;
         _spawnPoint.x += distance;
+        _spawnPoint.z = _pathCreator.path.GetPointAtDistance(_spawnPoint.x).z;
 
         return players;
     }
 
-    private Player BuildPlayer()
+    private Humanoid BuildPlayer()
     {
-        Debug.Log(_spawnPoint);
-        return Instantiate(_player, GetPosition(ref _spawnPoint, _positionY), Quaternion.identity, transform);
+        return Instantiate(_player, GetPosition(ref _spawnPoint, _positionY), Quaternion.Euler(0, 90, 0), transform);
     }
 
     private Vector3 GetPosition(ref Vector3 previousPosition, float positionY)
@@ -42,6 +43,7 @@ public class TowerBuilder : MonoBehaviour
         Vector3 position = previousPosition;
         position.y = _positionY;
         previousPosition = position;
+        position.z = -previousPosition.z;
         _positionY += _player.GetComponent<BoxCollider>().size.y;
 
         return position;

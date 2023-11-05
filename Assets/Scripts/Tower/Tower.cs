@@ -9,13 +9,15 @@ public class Tower : MonoBehaviour
     [SerializeField] private int _playersCount;
     [SerializeField] private PathCreator _pathCreator;
     [SerializeField] private float _towersCount;
-    private List<Player> _players;
+    private List<Humanoid> _players;
 
     private void Start()
     {
+        float distance = _pathCreator.path.length / _towersCount;
+
         for (int i = 0; i < _towersCount; i++)
         {
-            _players = _towerBuilder.Build(_playersCount, _pathCreator.path.length / _towersCount);
+            _players = _towerBuilder.Build(_playersCount, distance);
         }
     }
 }
