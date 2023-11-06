@@ -9,7 +9,7 @@ public class Tower : MonoBehaviour
     [SerializeField] private int _playersCount;
     [SerializeField] private PathCreator _pathCreator;
     [SerializeField] private float _towersCount;
-    private List<Humanoid> _players;
+    private List<Player> _players;
 
     private void Start()
     {

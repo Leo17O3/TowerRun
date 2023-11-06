@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class TowerBuilder : MonoBehaviour
 {
-    [SerializeField] private Humanoid _player;
+    [SerializeField] private Player[] _players;
     [SerializeField] private PathCreator _pathCreator;
     private Vector3 _spawnPoint;
     [SerializeField] private float _offsetX;
@@ -16,13 +16,14 @@ public class TowerBuilder : MonoBehaviour
         _spawnPoint.z = _pathCreator.path.GetPointAtDistance(_spawnPoint.x).z;
     }
 
-    public List<Humanoid> Build(int playersCount, float distance)
+    public List<Player> Build(int playersCount, float distance)
     {
-        List<Humanoid> players = new List<Humanoid>();
+        List<Player> players = new List<Player>();
 
         for (int i = 0; i < playersCount; i++)
         {
-            Humanoid player = BuildPlayer();
+            int index = Random.Range(0, _players.Length);
+            Player player = BuildPlayer(index);
             players.Add(player);
         }
 
@@ -33,18 +34,18 @@ public class TowerBuilder : MonoBehaviour
         return players;
     }
 
-    private Humanoid BuildPlayer()
+    private Player BuildPlayer(int index)
     {
-        return Instantiate(_player, GetPosition(ref _spawnPoint, _positionY), Quaternion.Euler(0, 90, 0), transform);
+        return Instantiate(_players[index], GetPosition(ref _spawnPoint, _positionY, index), Quaternion.Euler(0, 90, 0), transform);
     }
 
-    private Vector3 GetPosition(ref Vector3 previousPosition, float positionY)
+    private Vector3 GetPosition(ref Vector3 previousPosition, float positionY, int index)
     {
         Vector3 position = previousPosition;
         position.y = _positionY;
         previousPosition = position;
         position.z = -previousPosition.z;
-        _positionY += _player.GetComponent<BoxCollider>().size.y;
+        _positionY += _players[index].GetComponent<BoxCollider>().size.y;
 
         return position;
     }

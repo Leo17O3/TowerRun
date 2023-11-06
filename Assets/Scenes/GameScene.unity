@@ -383,7 +383,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c0eddb2417855c4489f4ee6b612c960, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _player: {fileID: 8212177265823036226, guid: 2584e4b40b8d2ce43a2a545c778a34b9, type: 3}
+  _players:
+  - {fileID: -3893768957052120904, guid: 2584e4b40b8d2ce43a2a545c778a34b9, type: 3}
   _pathCreator: {fileID: 469760927}
   _offsetX: 3.5
 --- !u!4 &502742423
