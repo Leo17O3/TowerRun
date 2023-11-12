@@ -4,37 +4,40 @@ using UnityEngine;
 
 public class TowerBuilder : MonoBehaviour
 {
-    [SerializeField] private Player[] _players;
+    [SerializeField] private Human[] _players;
+    [SerializeField] private int _minHumansCountInTower;
+    [SerializeField] private int _maxHumansCountInTower;
     [SerializeField] private PathCreator _pathCreator;
+    [SerializeField] private PathGenerator _pathGenerator;
     private Vector3 _spawnPoint;
     [SerializeField] private float _offsetX;
     private float _positionY;
 
     private void Awake()
     {
-        _spawnPoint.x = _pathCreator.path.GetPointAtDistance(0).x + _offsetX;
-        _spawnPoint.z = _pathCreator.path.GetPointAtDistance(_spawnPoint.x).z;
+        _spawnPoint = _pathGenerator.GetPathPoint(0, _offsetX);
     }
 
-    public List<Player> Build(int playersCount, float distance)
+    public List<Human> Build(float distance)
     {
-        List<Player> players = new List<Player>();
+        List<Human> humans = new List<Human>();
 
-        for (int i = 0; i < playersCount; i++)
+        int humansCountInTower = Random.Range(_minHumansCountInTower, _maxHumansCountInTower);
+
+        for (int i = 0; i < humansCountInTower; i++)
         {
             int index = Random.Range(0, _players.Length);
-            Player player = BuildPlayer(index);
-            players.Add(player);
+            Human player = BuildPlayer(index);
+            humans.Add(player);
         }
 
         _positionY = 0f;
-        _spawnPoint.x += distance;
-        _spawnPoint.z = _pathCreator.path.GetPointAtDistance(_spawnPoint.x).z;
+        _spawnPoint = _pathGenerator.GetPathPoint(_spawnPoint.x + distance);
 
-        return players;
+        return humans;
     }
 
-    private Player BuildPlayer(int index)
+    private Human BuildPlayer(int index)
     {
         return Instantiate(_players[index], GetPosition(ref _spawnPoint, _positionY, index), Quaternion.Euler(0, 90, 0), transform);
     }
@@ -44,7 +47,7 @@ public class TowerBuilder : MonoBehaviour
         Vector3 position = previousPosition;
         position.y = _positionY;
         previousPosition = position;
-        position.z = -previousPosition.z;
+        position.z = previousPosition.z;
         _positionY += _players[index].GetComponent<BoxCollider>().size.y;
 
         return position;

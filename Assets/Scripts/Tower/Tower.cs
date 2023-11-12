@@ -6,10 +6,9 @@ using UnityEngine;
 public class Tower : MonoBehaviour
 {
     [SerializeField] private TowerBuilder _towerBuilder;
-    [SerializeField] private int _playersCount;
     [SerializeField] private PathCreator _pathCreator;
     [SerializeField] private float _towersCount;
-    private List<Player> _players;
+    private List<Human> _humans;
 
     private void Start()
     {
@@ -17,7 +16,12 @@ public class Tower : MonoBehaviour
 
         for (int i = 0; i < _towersCount; i++)
         {
-            _players = _towerBuilder.Build(_playersCount, distance);
+            _humans = _towerBuilder.Build(distance);
         }
+    }
+
+    public void RemoveHuman(Human human)
+    {
+        _humans.Remove(human);
     }
 }
