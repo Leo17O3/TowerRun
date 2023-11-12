@@ -250,6 +250,8 @@ MonoBehaviour:
   _tower: {fileID: 502742421}
   _humans:
   - {fileID: 259816932}
+  _force: 25
+  _radius: 100
 --- !u!1 &469760925
 GameObject:
   m_ObjectHideFlags: 0
@@ -693,7 +695,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1328861974}
-  m_Mesh: {fileID: 1490406217}
+  m_Mesh: {fileID: 1515954655}
 --- !u!4 &1328861977
 Transform:
   m_ObjectHideFlags: 0
@@ -721,7 +723,7 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 14.546833, y: 0.20000003, z: 2.8144472}
   m_Center: {x: 0.47776914, y: -0.10000002, z: 0.05839622}
---- !u!43 &1490406217
+--- !u!43 &1515954655
 Mesh:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -964,5 +966,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: man-casual
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: -2117464121895318363, guid: 2584e4b40b8d2ce43a2a545c778a34b9, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 2584e4b40b8d2ce43a2a545c778a34b9, type: 3}

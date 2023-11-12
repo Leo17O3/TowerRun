@@ -1488,6 +1488,7 @@ GameObject:
   - component: {fileID: 473595662643470798}
   - component: {fileID: 7312204822444371664}
   - component: {fileID: 6695807195291973972}
+  - component: {fileID: 8303427512255814627}
   m_Layer: 0
   m_Name: woman-clown
   m_TagString: Untagged
@@ -1557,6 +1558,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 139ccb4f33ede554385fb9571e397404, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!54 &8303427512255814627
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 558554441393270362}
+  serializedVersion: 2
+  m_Mass: 160
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &558559650650840142
 GameObject:
   m_ObjectHideFlags: 0

@@ -28,4 +28,20 @@ public class Human : MonoBehaviour
 
         return _downHumans.ToArray();
     }
+
+    public Human[] GetUpHumans()
+    {
+        Human[] humans = FindObjectsOfType<Human>();
+        List<Human> upHumans = new List<Human>();
+
+        for (int i = 0; i < humans.Length; i++)
+        {
+            if (humans[i].transform.position.x == transform.position.x && humans[i].transform.position.z == transform.position.z && humans[i].transform.position.y >= transform.position.y)
+            {
+                upHumans.Add(humans[i]);
+            }
+        }
+
+        return upHumans.ToArray();
+    }
 }
