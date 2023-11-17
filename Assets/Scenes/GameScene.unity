@@ -222,6 +222,11 @@ MonoBehaviour:
   _jumpForce: 100
   _minDistance: 0
   _ground: {fileID: 1328861977}
+  _transformDown: {fileID: 0}
+  _isGrounded: 1
+  _groundLayer:
+    serializedVersion: 2
+    m_Bits: 8
 --- !u!65 &276364634
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -251,7 +256,6 @@ MonoBehaviour:
   _humans:
   - {fileID: 259816932}
   _force: 25
-  _radius: 100
 --- !u!1 &469760925
 GameObject:
   m_ObjectHideFlags: 0
@@ -638,6 +642,7 @@ GameObject:
   - component: {fileID: 1328861976}
   - component: {fileID: 1328861975}
   - component: {fileID: 1328861978}
+  - component: {fileID: 1328861979}
   m_Layer: 3
   m_Name: Road Mesh Holder
   m_TagString: Untagged
@@ -695,7 +700,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1328861974}
-  m_Mesh: {fileID: 1515954655}
+  m_Mesh: {fileID: 1674805112}
 --- !u!4 &1328861977
 Transform:
   m_ObjectHideFlags: 0
@@ -723,7 +728,23 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 14.546833, y: 0.20000003, z: 2.8144472}
   m_Center: {x: 0.47776914, y: -0.10000002, z: 0.05839622}
---- !u!43 &1515954655
+--- !u!54 &1328861979
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1328861974}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!43 &1674805112
 Mesh:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -920,7 +941,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6975779694211714378, guid: 2584e4b40b8d2ce43a2a545c778a34b9, type: 3}
       propertyPath: m_RootOrder
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6975779694211714378, guid: 2584e4b40b8d2ce43a2a545c778a34b9, type: 3}
       propertyPath: m_LocalPosition.x

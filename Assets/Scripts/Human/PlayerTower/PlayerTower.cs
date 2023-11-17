@@ -10,7 +10,7 @@ public class PlayerTower : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.TryGetComponent(out Human human) && IsFirstHuman(human) && human.transform.position.y <= _humans[0].transform.position.y)
+        if (other.TryGetComponent(out Human human) && IsFirstHuman(human) && human.transform.position.y < _humans[0].transform.position.y)
         {
             Human[] downHumans = human.GetDownHumans();
             Human[] upHumans = human.GetUpHumans();
@@ -50,9 +50,10 @@ public class PlayerTower : MonoBehaviour
                 direction *= -1;
             }
         }
-        else if (other.TryGetComponent(out Human humanDown) && IsFirstHuman(humanDown) && humanDown.transform.position.y >= _humans[0].transform.position.y)
+        else if (other.TryGetComponent(out Human humanDown) && humanDown.transform.position.y >= _humans[0].transform.position.y)
         {
             Human[] upHumans = human.GetUpHumans();
+            Debug.Log(upHumans);
 
             Vector3 direction = Vector3.forward;
 
