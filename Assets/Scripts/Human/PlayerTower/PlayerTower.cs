@@ -9,7 +9,7 @@ public class PlayerTower : MonoBehaviour
     private List<Human> _humans = new List<Human>();
     [SerializeField] private float _force;
 
-    private void Start()
+    private void Awake()
     {
         Spawn();
     }
@@ -47,7 +47,13 @@ public class PlayerTower : MonoBehaviour
                 downHumans[i].transform.SetParent(transform);
             }
 
+            if (upHumans.Length > 0)
+            {
+                Destroy(upHumans[0].transform.parent.gameObject);
+            }
+
             Vector3 direction = Vector3.forward;
+
 
             for (int i = 0; i < upHumans.Length; i++)
             {
@@ -71,7 +77,13 @@ public class PlayerTower : MonoBehaviour
         {
             Human[] upHumans = human.GetUpHumans();
 
+            if (upHumans.Length > 0)
+            {
+                Destroy(upHumans[0].transform.parent.gameObject);
+            }
+
             Vector3 direction = Vector3.forward;
+
 
             for (int i = 0; i < upHumans.Length; i++)
             {
@@ -126,5 +138,12 @@ public class PlayerTower : MonoBehaviour
     private void EnableKinematicRigidbody(Rigidbody rigidbody)
     {
         rigidbody.isKinematic = true;
+    }
+
+    public Human[] GetHumans(int humansCount)
+    {
+        Human[] humans = _humans.GetRange(0, humansCount).ToArray();
+
+        return humans;
     }
 }

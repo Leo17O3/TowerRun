@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
@@ -14,6 +15,16 @@ public class PlayerTowerJumper : MonoBehaviour
             _rigidbody.AddForce(transform.up * _jumpForce);
             _isGrounded = false;
         }
+    }
+
+    public void IncreaseJumpForce(float additiveForce)
+    {
+        _jumpForce *= additiveForce;
+    }
+
+    public void ReduceJumpForce(float additiveForce)
+    {
+        _jumpForce /= additiveForce;
     }
 
     private void OnCollisionEnter(Collision collision)
