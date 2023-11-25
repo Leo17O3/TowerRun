@@ -5,6 +5,7 @@ using UnityEngine;
 public class TowerBuilder : MonoBehaviour
 {
     [SerializeField] private Human[] _players;
+    [SerializeField] private GameObject _parent;
     [SerializeField] private int _minHumansCountInTower;
     [SerializeField] private int _maxHumansCountInTower;
     [SerializeField] private PathCreator _pathCreator;
@@ -20,6 +21,7 @@ public class TowerBuilder : MonoBehaviour
 
     public List<Human> Build(float distance)
     {
+        Transform parent = Instantiate(_parent).transform;
         List<Human> humans = new List<Human>();
 
         int humansCountInTower = Random.Range(_minHumansCountInTower, _maxHumansCountInTower);
@@ -29,6 +31,7 @@ public class TowerBuilder : MonoBehaviour
             int index = Random.Range(0, _players.Length);
             Human player = BuildPlayer(index);
             humans.Add(player);
+            player.transform.SetParent(parent);
         }
 
         _positionY = 0f;
@@ -48,7 +51,7 @@ public class TowerBuilder : MonoBehaviour
         position.y = _positionY;
         previousPosition = position;
         position.z = previousPosition.z;
-        _positionY += _players[index].GetComponent<BoxCollider>().size.y;
+        _positionY += _players[index].FixationPoint.position.y;
 
         return position;
     }

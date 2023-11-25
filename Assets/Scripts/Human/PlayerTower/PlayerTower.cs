@@ -5,28 +5,40 @@ using UnityEngine;
 public class PlayerTower : MonoBehaviour
 {
     [SerializeField] private Tower _tower;
-    [SerializeField] private List<Human> _humans;
+    [SerializeField] private Human[] _humanTemplates;
+    private List<Human> _humans = new List<Human>();
     [SerializeField] private float _force;
+
+    private void Start()
+    {
+        Spawn();
+    }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.TryGetComponent(out Human human) && IsFirstHuman(human) && human.transform.position.y < _humans[0].transform.position.y)
+        if (other.transform.parent == transform)
+        {
+            return;
+        }
+
+
+        if (other.TryGetComponent(out Human human))
         {
             Human[] downHumans = human.GetDownHumans();
             Human[] upHumans = human.GetUpHumans();
 
             for (int i = 0; i < downHumans.Length; i++)
             {
-                _humans.Add(downHumans[i]);
                 _tower.RemoveHuman(downHumans[i]);
+                _humans.Add(downHumans[i]);
 
                 Destroy(downHumans[i].GetComponent<Rigidbody>());
                 BoxCollider boxCollider = downHumans[i].GetComponent<BoxCollider>();
-                boxCollider.isTrigger = false;
+                Destroy(boxCollider);
 
                 for (int j = 0; j < _humans.Count - downHumans.Length; j++)
                 {
-                    Vector3 newPosition = new Vector3(_humans[j].transform.position.x, _humans[j].transform.position.y + boxCollider.size.y, _humans[j].transform.position.z);
+                    Vector3 newPosition = new Vector3(_humans[j].transform.position.x, _humans[j].FixationPoint.position.y, _humans[j].transform.position.z);
                     _humans[j].transform.position = newPosition;
                 }
 
@@ -41,19 +53,21 @@ public class PlayerTower : MonoBehaviour
             {
                 Rigidbody rigidbody = upHumans[i].GetComponent<Rigidbody>();
 
-                rigidbody.isKinematic = false;
                 rigidbody.WakeUp();
+                rigidbody.isKinematic = false;
 
                 _tower.RemoveHuman(upHumans[i]);
+                upHumans[i].transform.SetParent(null);
+                upHumans[i].GetComponent<Animator>().applyRootMotion = false;
+                upHumans[i].GetComponent<BoxCollider>().isTrigger = false;
 
                 rigidbody.AddForceAtPosition(direction * _force, upHumans[i].transform.position, ForceMode.VelocityChange);
-                direction *= -1;
+                direction *= -1f;
             }
         }
         else if (other.TryGetComponent(out Human humanDown) && humanDown.transform.position.y >= _humans[0].transform.position.y)
         {
             Human[] upHumans = human.GetUpHumans();
-            Debug.Log(upHumans);
 
             Vector3 direction = Vector3.forward;
 
@@ -61,13 +75,16 @@ public class PlayerTower : MonoBehaviour
             {
                 Rigidbody rigidbody = upHumans[i].GetComponent<Rigidbody>();
 
-                rigidbody.isKinematic = false;
                 rigidbody.WakeUp();
+                rigidbody.isKinematic = false;
+                upHumans[i].GetComponent<Animator>().applyRootMotion = false;
+                upHumans[i].GetComponent<BoxCollider>().isTrigger = false;
 
                 _tower.RemoveHuman(upHumans[i]);
+                upHumans[i].transform.SetParent(null);
 
                 rigidbody.AddForceAtPosition(direction * _force, upHumans[i].transform.position, ForceMode.VelocityChange);
-                direction *= -1;
+                direction *= -1f;
             }
         }
     }
@@ -87,5 +104,23 @@ public class PlayerTower : MonoBehaviour
         }
 
         return false;
+    }
+
+    private void Spawn()
+    {
+        Human human = Instantiate(_humanTemplates[Random.Range(0, _humanTemplates.Length)], transform.position, Quaternion.identity, transform);
+        _humans.Add(human);
+        DisableCollider(human.GetComponent<BoxCollider>());
+        EnableKinematicRigidbody(human.GetComponent<Rigidbody>());
+    }
+
+    private void DisableCollider(BoxCollider collider)
+    {
+        Destroy(collider);
+    }
+
+    private void EnableKinematicRigidbody(Rigidbody rigidbody)
+    {
+        rigidbody.isKinematic = true;
     }
 }
