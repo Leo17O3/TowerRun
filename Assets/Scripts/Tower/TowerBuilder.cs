@@ -6,6 +6,7 @@ public class TowerBuilder : MonoBehaviour
 {
     [SerializeField] private Human[] _players;
     [SerializeField] private GameObject _parent;
+    [SerializeField] private Transform _towers;
     [SerializeField] private int _minHumansCountInTower;
     [SerializeField] private int _maxHumansCountInTower;
     [SerializeField] private PathCreator _pathCreator;
@@ -22,6 +23,8 @@ public class TowerBuilder : MonoBehaviour
     public List<Human> Build(float distance)
     {
         Transform parent = Instantiate(_parent).transform;
+        parent.SetParent(_towers);
+
         List<Human> humans = new List<Human>();
 
         int humansCountInTower = Random.Range(_minHumansCountInTower, _maxHumansCountInTower);

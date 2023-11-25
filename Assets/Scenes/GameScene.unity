@@ -172,7 +172,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _rigidbody: {fileID: 276364632}
   _pathCreator: {fileID: 469760927}
-  _speed: 5
+  _speed: 3.5
 --- !u!54 &276364632
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -404,6 +404,7 @@ MonoBehaviour:
   - {fileID: 6695807195291973972, guid: 8a738cd2fd61f2c43a83f168965fb27e, type: 3}
   - {fileID: -3287918402601195986, guid: 68017d6e867210649857ccccec1c8776, type: 3}
   _parent: {fileID: 995012447782251009, guid: 8ecda37b0567143448485b44075d32d4, type: 3}
+  _towers: {fileID: 0}
   _minHumansCountInTower: 2
   _maxHumansCountInTower: 6
   _pathCreator: {fileID: 469760927}

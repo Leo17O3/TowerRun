@@ -14,8 +14,7 @@ public class Human : MonoBehaviour
 
         for (int i = 0; i < humans.Length; i++)
         {
-            if (/*humans[i].transform.position.x == transform.position.x && humans[i].transform.position.z == transform.position.z && 
-                humans[i].transform.position.y <= transform.position.y*/humans[i].transform.parent == transform.parent && humans[i].FixationPoint.position.y <= transform.position.y)
+            if (humans[i].transform.parent == transform.parent && humans[i].FixationPoint.position.y <= transform.position.y)
             {
                 _downHumans.Add(humans[i]);
             }
@@ -31,7 +30,7 @@ public class Human : MonoBehaviour
 
         for (int i = 0; i < humans.Length; i++)
         {
-            if (humans[i].transform.parent == transform.parent && humans[i].FixationPoint.position.y > transform.position.y/*humans[i].transform.position.x == transform.position.x && humans[i].transform.position.z == transform.position.z && humans[i].transform.position.y > transform.position.y*/)
+            if (humans[i].transform.parent == transform.parent && humans[i].FixationPoint.position.y > transform.position.y)
             {
                 upHumans.Add(humans[i]);
             }

@@ -63,6 +63,8 @@ public class PlayerTower : MonoBehaviour
 
                 rigidbody.AddForceAtPosition(direction * _force, upHumans[i].transform.position, ForceMode.VelocityChange);
                 direction *= -1f;
+
+                Destroy(upHumans[i].gameObject, 5f);
             }
         }
         else if (other.TryGetComponent(out Human humanDown) && humanDown.transform.position.y >= _humans[0].transform.position.y)
@@ -85,6 +87,8 @@ public class PlayerTower : MonoBehaviour
 
                 rigidbody.AddForceAtPosition(direction * _force, upHumans[i].transform.position, ForceMode.VelocityChange);
                 direction *= -1f;
+
+                Destroy(upHumans[i].gameObject, 5f);
             }
         }
     }

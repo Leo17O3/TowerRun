@@ -12,7 +12,7 @@ public class PathFollower : MonoBehaviour
 
     private void Update()
     {
-        _distantTravaled += Time.deltaTime;
+        _distantTravaled += _speed * Time.deltaTime;
 
         Vector3 nextPosition = _pathCreator.path.GetPointAtDistance(_distantTravaled, EndOfPathInstruction.Loop);
         nextPosition.y = transform.position.y;
