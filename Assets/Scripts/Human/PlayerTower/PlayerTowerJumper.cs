@@ -6,7 +6,8 @@ public class PlayerTowerJumper : MonoBehaviour
 {
     [SerializeField] private Rigidbody _rigidbody;
     [SerializeField] private float _jumpForce;
-    [SerializeField] private bool _isGrounded = true;
+    [SerializeField] private bool _isGrounded;
+    bool _isClicked;
 
     private void Update()
     {
@@ -14,6 +15,11 @@ public class PlayerTowerJumper : MonoBehaviour
         {
             _rigidbody.AddForce(transform.up * _jumpForce);
             _isGrounded = false;
+            _isClicked = false;
+        }
+        else if (Input.GetMouseButtonDown(0))
+        {
+            _isClicked = true;
         }
     }
 
@@ -32,6 +38,10 @@ public class PlayerTowerJumper : MonoBehaviour
         if (collision.gameObject.layer == 3)
         {
             _isGrounded = true;
+        }
+        else if(_isClicked)
+        {
+            Debug.Log(collision.gameObject.layer);
         }
     }
 }

@@ -142,8 +142,19 @@ public class PlayerTower : MonoBehaviour
 
     public Human[] GetHumans(int humansCount)
     {
+        if (_humans.Count == 0)
+        {
+            return null;
+        }
+        else if (humansCount > _humans.Count)
+        {
+            humansCount = _humans.Count;
+        }
+
         Human[] humans = _humans.GetRange(0, humansCount).ToArray();
 
         return humans;
     }
+
+    public void RemoveHuman(Human human) => _humans.Remove(human);
 }
